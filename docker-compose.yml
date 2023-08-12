@@ -1,8 +1,18 @@
 version: '3'
 services:
-  app:
+  workspace:
     image: mcr.microsoft.com/devcontainers/python:1-3.11-bullseye
     volumes:
       - .:/workspace:cached
     ports:
       - 8000:8000
+      
+  django:
+    build:
+      context: ./
+      dockerfile: ./django/Dockerfile
+    volumes:
+      - ./django:/django
+    ports:
+      - 8080:8080
+    container_name: docker_django
