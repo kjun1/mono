@@ -19,8 +19,8 @@ class Map:
     # インデックス指定されたマス目を返す
     def __getitem__(self, index):
         return self.__map[index]
-    
-    
+
+
 # マス目のクラス
 class Square:
     # マス目の初期化
@@ -29,8 +29,10 @@ class Square:
         self.__name = ""
         # マス目の番号
         self.__number = -1
-        # マス目のイベント
-        self.__event = None
+        # マス目通過時イベント
+        self.__event_pass = None
+        # マス目到達時イベント
+        self.__event_arrive = None
     # マス目の名前を設定する
     def set_name(self, name):
         self.__name = name
@@ -43,35 +45,53 @@ class Square:
     # マス目の番号を取得する
     def get_number(self):
         return self.__number
-    # マス目のイベントを設定する
-    def set_event(self, event):
-        self.__event = event
-    # マス目のイベントを取得する
-    def get_event(self):
-        return self.__event
-    # マス目のイベントを実行する
-    def execute_event(self, player):
-        self.__event.execute(player)
-    # マス目のイベントの結果を取得する
-    def get_result(self):
-        return self.__event.get_result()
+    # マス目通過時イベントを設定する
+    def set_event_pass(self, event_pass):
+        self.__event_pass = event_pass
+    # マス目通過時イベントを取得する
+    def get_event_pass(self):
+        return self.__event_pass
+    # マス目到達時イベントを設定する
+    def set_event_arrive(self, event_arrive):
+        self.__event_arrive = event_arrive
+    # マス目到達時イベントを取得する
+    def get_event_arrive(self):
+        return self.__event_arrive
+    # マス目通過時イベントを実行する
+    def execute_event_pass(self, player):
+        if self.__event_pass != None:
+            self.__event_pass.execute(player)
+    # マス目到達時イベントを実行する
+    def execute_event_arrive(self, player):
+        if self.__event_arrive != None:
+            self.__event_arrive.execute(player)
+
     
 # マス目のイベントのクラス
 class Event:
     # マス目のイベントの初期化
     def __init__(self):
-        # マス目のイベントの結果
-        self.__effect = ""
+        # マス目のイベントの種類
+        self.__type = ""
+        # マス目のイベントの効果
+        self.__effect = None
     # マス目のイベントを実行する
     def execute(self, player):
-        pass
-    # マス目のイベントの結果を取得する
-    def get_result(self):
-        # TODO: 仮置きで効果を直接返す
-        return self.get_effect()
-    # マス目のイベントの効果を取得する
-    def get_effect(self):
-        return self.__effect
+        # プレイヤーに効果を実行する
+        text = self.__effect(player)
+        # テキストを返す
+        return text
+    # マス目のイベントの種類を設定する
+    def set_type(self, type):
+        self.__type = type
+    # マス目のイベントの種類を取得する
+    def get_type(self):
+        return self.__type
     # マス目のイベントの効果を設定する
     def set_effect(self, effect):
         self.__effect = effect
+    # マス目のイベントの効果を取得する
+    def get_effect(self):
+        return self.__effect
+    
+    
