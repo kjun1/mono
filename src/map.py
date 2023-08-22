@@ -1,16 +1,16 @@
 # マップのクラス
 class Map:
     # マップの初期化
-    def __init__(self, square_list):
-        # マップのマス目のリスト
-        self.__map = square_list
+    def __init__(self, square_dict):
+        # マップのマス目の辞書
+        self.__map = square_dict
         # マップのマス目の数
-        self.__map_size = len(square_list)
+        self.__map_size = len(square_dict)
     # マップのマス目を設定する
-    def set_map(self, square_list):
-        self.__map = square_list
-        self.__map_size = len(square_list)
-    # マップのマス目のリストを取得する
+    def set_map(self, square_dict):
+        self.__map = square_dict
+        self.__map_size = len(square_dict)
+    # マップのマス目の辞書を取得する
     def get_map(self):
         return self.__map
     # マップのマス目の数を取得する
@@ -20,6 +20,14 @@ class Map:
     def __getitem__(self, index):
         return self.__map[index]
 
+# エリアのクラス
+class Area:
+    # エリアの初期化
+    def __init__(self, name, square_dict):
+        # エリアの名前
+        self.__name = name
+        # エリアのマス目の辞書
+        self.__square_dict = square_dict
 
 # マス目のクラス
 class Square:
